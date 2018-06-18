@@ -1,0 +1,6 @@
+#+TITLE: Problem Set 1
+#+AUTHOR: Ebert
+
+* Definition of Underactuated
+** Simple Helicopter:
+1. 
