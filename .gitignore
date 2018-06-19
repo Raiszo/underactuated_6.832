@@ -1,3 +1,10 @@
+# emacs files
+*~
+\#*\#
+.\#*
+/server/
+.tern-port
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

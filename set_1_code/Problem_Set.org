@@ -3,4 +3,15 @@
 
 * Definition of Underactuated
 ** Simple Helicopter:
-1. 
+1. From the equations of motion the rank of the f2 is 2 which is less
+ than the rank of q (3)
+2. Given m=1, g=10 and Ixx=1e-3, for the given state: 
+f2=[-0.1*sin(0.5) 0;
+		0.1*cos(0.5)  0;
+		0 1000]
+u = [F M]'
+One can see that accelerations for x and z depend only on the value of F
+eg: \ddot{q}_d = [1 5]', so for \ddot{x}_d => F = 20.85, but that produces 
+\ddot{z}_d = 1.83 which is != 5
+** Bicycle:
+
