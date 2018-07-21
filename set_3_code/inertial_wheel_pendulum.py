@@ -123,8 +123,28 @@ class InertialWheelPendulum(VectorSystem):
         computing the linearized dynamics of this system around the
         specified point.
         '''
-        A = np.zeros((4, 4))
-        B = np.zeros((4, 1))
+        # A = np.zeros((4, 4))
+        # B = np.zeros((4, 1))
+
+        size = np.shape(q_f)[0]
+        taug_dot = np.array([
+            [-(self.m1*self.l1 + self.m2*self.l2)*self.g*math.cos(q_f[0])*qd_f[0], 0],
+            [0, 0]
+        ])
+        print taug_dot
+        # the derivative of Bj is zero :D
+        A_row0 = np.concatenate((np.zeros((size,size)),
+                                 np.eye(size)),
+                                axis=1)
+        A_row1 = np.concatenate((np.linalg.inv(M).dot(taug_dot),
+                                 np.zeros((size,size))),
+                                axis=1)
+
+        A = np.concatenate((A_row0, A_row1), axis=0)
+        B = np.concatenate((np.zeros((size,1)),
+                            np.linalg.inv(M).dot(B_f)),
+                           axis=1)
+
         return (A, B)
 
 class PendulumController(VectorSystem):
