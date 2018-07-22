@@ -84,7 +84,7 @@ class InertialWheelPendulum(VectorSystem):
     def _DoCalcVectorTimeDerivatives(self, context, u, x, xdot):
         q = x[0:2]
         qd = x[2:4]
-        xdot[:] = self.evaluate_f(u, x, throw_when_limits_exceeded=True)
+        xdot[:] = self.evaluate_f(u, x, throw_when_limits_exceeded=False)
 
     # This method calculates the output of the system
     # (i.e. those things that are visible downstream of
@@ -128,10 +128,9 @@ class InertialWheelPendulum(VectorSystem):
 
         size = np.shape(q_f)[0]
         taug_dot = np.array([
-            [-(self.m1*self.l1 + self.m2*self.l2)*self.g*math.cos(q_f[0])*qd_f[0], 0],
+            [-(self.m1*self.l1 + self.m2*self.l2)*self.g*math.cos(q_f[0]), 0],
             [0, 0]
         ])
-        print taug_dot
         # the derivative of Bj is zero :D
         A_row0 = np.concatenate((np.zeros((size,size)),
                                  np.eye(size)),
@@ -143,7 +142,7 @@ class InertialWheelPendulum(VectorSystem):
         A = np.concatenate((A_row0, A_row1), axis=0)
         B = np.concatenate((np.zeros((size,1)),
                             np.linalg.inv(M).dot(B_f)),
-                           axis=1)
+                           axis=0)
 
         return (A, B)
 
