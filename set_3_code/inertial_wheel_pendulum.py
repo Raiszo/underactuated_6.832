@@ -58,7 +58,7 @@ class InertialWheelPendulum(VectorSystem):
     # is true, this function will throw a ValueError when
     # the input limits are violated. Otherwise, it'll clamp
     # u to the input range.
-    def evaluate_f(self, u, x, throw_when_limits_exceeded=True):
+    def evaluate_f(self, u, x, throw_when_limits_exceeded=False):
         # Bound inputs
         if throw_when_limits_exceeded and abs(u[0]) > self.input_max:
             raise ValueError("You commanded an out-of-range input of u=%f"
